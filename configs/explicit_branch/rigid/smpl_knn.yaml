@@ -1,0 +1,8 @@
+# @package _global_.explicit_branch
+
+rigid_name: smpl_knn
+
+model:
+  deformer:
+    rigid:
+      name: smpl_knn

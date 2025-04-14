@@ -1,0 +1,31 @@
+train_split: 'train'
+val_split: 'val'
+test_split: 'test'
+name: animation
+dataroot_train: ./load/rana/train_p1/${implicit_branch.dataset.subject}
+dataroot_test: ./load/distill_pose/${implicit_branch.dataset.motion}
+subject: subject_05
+motion: rana_pose_aa_all # da_pose_aa # cape_00032_shortlong_soccer
+gender: male
+scene_aabb: [-1.25, -1.55, -1.25, 1.25, 0.95, 1.25]
+#hdri_filepath: ./Environment_Maps/high_res_envmaps_2k/city.hdr
+opt:
+  train:
+    num_workers: 8
+    batch_size: 1
+    start: 0
+    end: 455
+    skip: 4
+    downscale: 1
+    fitting: false
+    refine: false
+  test:
+    num_workers: 0
+    batch_size: 1
+    start: 0
+    # end: 101
+#    end: 9
+    end: 309
+    skip: 1
+    downscale: 1 # 2
+#    hdri_filepath: ./Environment_Maps/high_res_envmaps_2k/city.hdr # cambridge_2k city

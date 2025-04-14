@@ -1,0 +1,108 @@
+defaults:
+  - implicit_branch/config
+  - explicit_branch/config
+  - _self_
+#  - override implicit_branch/pose_correction: pose_residual_enable
+#  - override implicit_branch/light: envlight_tensor # envlight_tensor_blender # envlight_tensor # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  - override explicit_branch/texture: shallow_mlp_rigid_noframe_ref_normal
+  - override explicit_branch/rigid: smpl_knn # smpl_nn smpl_knn skinning_field
+  - override explicit_branch/non_rigid: identity #ps_male we use identity # identity for RANA
+  - override explicit_branch/pose_correction: none
+  - override explicit_branch/option: iter50k
+  - override explicit_branch/distill_dataset: distill_rana_subject_01
+  - override explicit_branch/dataset: rana_IA_subject_01_male # rana_IA_subject_01_male_relight rana_IA_subject_01_male
+  - override implicit_branch/dataset: rana/p1/subject_01 # rana/p1/subject_01 rana/relight/subject_01
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+# Disable Hydra's automatic logging
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+  job:
+    chdir: false
+
+implicit_branch:
+  system:
+    name: intrinsic-avatar-system-GS
+    loss:
+      lambda_distill_points: 0.001
+  deformer:
+    rigid_deformer:
+      deformer_config:
+        cano_pose: "A_pose" # "ps_female_3_pose" "ps_pose" "A_pose" # "star_pose" for ps_male_3 # ps_pose for female3
+
+  tag: 'rana_s01'
+#  mode: test
+
+# for rana subject 01 we should use the checkpoint below
+#  resume: /scratch/shared/beegfs/zeren/instant-nsr-pbr/instant-nsr-pbr/exp/intrinsic-avatar-subject_01/rana_s01/ckpt/epoch=249-step=25000.ckpt
+
+  trainer:
+    max_steps: 25000
+
+explicit_branch:
+  base_res: 256
+  pipeline:
+    convert_SHs_python: true
+    compute_cov3D_python: false # True for 3dgs, False for 2dgs
+  test_interval: 2000
+  save_iterations: [10000, 20000, 25000, 30000, 40000, 50000]
+  checkpoint_iterations: [10000, 20000, 25000, 30000, 40000, 50000]
+  rendering_type: 'forward_pbr' # 'forward_pbr' 'diff_pbr' 'deferred_pbr' 
+  model:
+    pbr_iteration: 20000 # 20000
+    gaussian:
+      delay: 100
+
+# for rana_subject_01
+  distill_pose: true
+  distill_cano: true
+  build_occ: false
+  enable_occ_type: gaussian # gaussian pixel none
+  enable_occ_1spp: true
+  occ_dir: './exp/rana_s01_2dgs' # for a_pose 2dgs
+  exp_dir: ./exp/rana_s01_2dgs
+  dataset:
+    distill_data_dir: exp/intrinsic-avatar-subject_01/rana_s01/save/it25000-test
+    init_mode: IA # IA, random, smpl
+    obj_path: exp/intrinsic-avatar-subject_01/rana_s01/save/it25000-mc512.obj
+    test_mode: pose
+    predict_seq: 1
+    white_background: true
+    rest_pose: a_pose # a_pose, star_pose
+#  load_ckpt: exp/rana_s01_2dgs/ckpt30000.pth
+#  mode: test 
+
+  opt:
+    lambda_scale: [0, 5000, 0.1]
+    # point-based distillation loss
+    lambda_normal_similarity: 0.1 # 0.1
+    lambda_pos_distill: 0.05 # 0.05
+    lambda_materials: 0.08 # 0.08
+    # image-based distillation loss
+    lambda_env: 0.010 # 0.010 for RANA # 0.005
+    lambda_distill_image: 0.2 # 1.0 for PS # 0.2 for RANA
+    lambda_distill_image_rm: 0.00 # 0.01 for ps # 0.0 for RANA
+
+    densify_until_iter: 16000 # 20000
+    densify_grad_threshold: 0.0002 # 0.0002
+
+    # for 2dgs
+    lambda_dist: 100
+    lambda_normal: 0.05
+
+    # scale regularization
+    lambda_scale_reg: 0 # 0 (0 for rana)
+
+    # lpips
+    lambda_perceptual: 5e-2 # 1e-1 # 2e-1 # 5e-2 # 1e-2
+
+    # a_pose
+    lambda_skinning: [15,1000,0.3]
+
+    lambda_mask: 0.5 
+
+training_mode: distill # joint, distill, teacher, student
+gs_type: 2dgs # 2dgs, 3dgs

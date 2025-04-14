@@ -1,0 +1,30 @@
+# @package _global_.explicit_branch
+
+dataset_name: ps_male_3
+
+dataset:
+  name: animation
+#  root_dir: "./data_GS/peoplesnapshot_arah-format/people_snapshot_public"
+  root_dir: "./load/peoplesnapshot"
+  motion_root: "./load/animation"
+  motion: "aist" # "cape_00096_longshort_punching" # cape_00032_shortlong_soccer # aist
+  downscale: 1 # 2
+  subject: male-3-casual
+  split: train
+
+  train_frames: [ 0, 101, 1 ]
+  val_frames: [ 0, 101, 1 ]
+  test_frames:
+    pose: [0, 320, 1] # [ 0, 128, 1 ] for punching # [ 0, 101, 1 ] for soccer
+#    pose: [ 0, 456, 4 ]
+    all: [ 0, 101, 1 ]
+  predict_frames: [0, 0, 1]
+
+#  img_hw:
+#    - 540
+#    - 540
+
+  resolution: -1
+  white_background: false
+  data_device: cuda
+  eval: false

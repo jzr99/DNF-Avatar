@@ -1,0 +1,38 @@
+# @package _global_.explicit_branch
+
+dataset_name: ps_male_3
+
+dataset:
+  name: people_snapshot
+#  root_dir: "./data_GS/peoplesnapshot_arah-format/people_snapshot_public"
+  root_dir: "./load/peoplesnapshot"
+  subject: male-3-casual
+  split: train
+
+  train_frames: [ 0, 456, 4 ]
+  val_frames: [ 456, 457, 4 ]
+  test_frames:
+#    pose: [ 456, 676, 4 ]
+    pose: [ 0, 456, 4 ]
+    all: [ 0, 676, 1 ]
+  predict_frames: [0, 0, 1]
+
+  img_hw:
+    - 540
+    - 540
+
+  resolution: -1
+  # white_background: false
+  data_device: cuda
+  eval: false
+
+  distill_data_dir: ./exp/intrinsic-avatar-male-3-casual/male-3-casual/save/it25000-test
+  init_mode: IA # IA, random, smpl
+  obj_path: ./exp/intrinsic-avatar-male-3-casual/male-3-casual/save/it25000-mc512.obj 
+  test_mode: pose
+  predict_seq: 1
+  white_background: true
+  rest_pose: a_pose # a_pose, star_pose (will be better, but teacher should also trained by star pose), ps_pose
+occ_dir: exp/ps_male3_2dgs
+exp_dir: exp/ps_male3_2dgs
+

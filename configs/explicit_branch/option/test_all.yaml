@@ -1,0 +1,7 @@
+# @package _global_.explicit_branch
+
+dataset:
+  test_mode: all
+
+wandb_disable: true
+evaluate: false

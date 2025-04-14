@@ -1,0 +1,44 @@
+# @package _global_.explicit_branch
+
+dataset_name: rana_subject_01_male
+
+dataset:
+  name: rana
+  root_dir: "./load/rana"
+  subject: subject_01
+#  split: train
+
+  gender: male
+
+  train_split: 'train_p1'
+  val_split: 'train_p1'
+  test_split: 'test'
+
+  train_frames: [ 0, 100, 1 ]
+  val_frames: [ 99, 100, 1 ]
+  test_frames:
+    pose: [ 0, 150, 1 ]
+#    pose: [ 0, 456, 4 ]
+    all: [ 0, 150, 1 ]
+  predict_frames: [0, 0, 1]
+
+  img_hw:
+    - 720
+    - 1280
+#  img_hw:
+#    - 540
+#    - 540
+
+  resolution: -1
+  white_background: true
+  data_device: cuda
+  eval: false
+
+  distill_data_dir: ./exp/intrinsic-avatar-subject_01/rana_s01/save/it25000-test
+  init_mode: IA # IA, random, smpl
+  obj_path: ./exp/intrinsic-avatar-subject_01/rana_s01/save/it25000-mc512.obj 
+  test_mode: pose
+  predict_seq: 1
+  rest_pose: a_pose # a_pose, star_pose, ps_pose
+occ_dir: exp/rana_s01_2dgs
+exp_dir: exp/rana_s01_2dgs_relight
