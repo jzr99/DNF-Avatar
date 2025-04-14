@@ -1,7 +1,0 @@
-# @package _global_.explicit_branch
-
-opt:
-  iterations: 30000
-
-  lr_ratio: 0.1
-  densify_until_iter: 15000

@@ -1,8 +1,0 @@
-# @package _global_.explicit_branch
-
-rigid_name: identity
-
-model:
-  deformer:
-    rigid:
-      name: identity

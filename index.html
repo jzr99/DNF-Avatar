@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="DNF-Avatar: Distilling Neural Fields for Real-time Animatable Avatar Relighting">
+  <meta name="keywords" content="Vid2Avatar">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DNF-Avatar: Distilling Neural Fields for Real-time Animatable Avatar Relighting</title>
+
+
+  </script>
+  <link rel="stylesheet" href="./static/css/bootstrap-4.4.1.css">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./resource/dnf-avatar-logo.png">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <link rel="stylesheet" href="./static/css/dics.original.css">
+  <script src="./static/js/event_handler.js"></script>
+  <script src="./static/js/dics.original.js"></script>
+
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <img src="./resource/dnf-avatar-logo.png" alt="MonST3R Icon" style="width: 100px; vertical-align: middle;">
+          <h1 class="title is-1 publication-title">DNF-Avatar: Distilling Neural Fields for Real-time Animatable Avatar Relighting</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <span class="author-block">
+                <a href="https://jzr99.github.io">Zeren Jiang</a><sup>1</sup>,</span>
+                <span class="author-block">
+                <a href="https://taconite.github.io/">Shaofei Wang</a><sup>2</sup>,</span>
+                <span class="author-block">
+                <a href="https://vlg.inf.ethz.ch/team/Prof-Dr-Siyu-Tang.html">Siyu Tang</a><sup>2</sup>
+              </span>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Visual Geometry Group, University of Oxford,</span>
+            <span class="author-block"><sup>2</sup>ETH Zürich
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">ArXiv 2025</span>
+            </span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper (coming soon)</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="./resource/CVPR2024_MultiPly_Supp_Doc.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-archive"></i>
+                  </span>
+                  <span>SuppMat</span>
+                </a>
+              </span> -->
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/jzr99/DNF-Avatar"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <img src="./resource/dnf_teaser_v2.png"  class="center"/>
+      <h2 class="subtitle has-text-centered">
+        DNF-Avatar, a novel framework to distill knowledge from implicit model to explicit one for real-time rendering and relighting.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Creating relightable and animatable human avatars from monocular videos is a rising research topic with a range of applications, e.g. virtual reality, sports, and video games. Previous works utilize neural fields together with physically based rendering (PBR), to estimate geometry and disentangle appearance properties of human avatars. However, one drawback of these methods is the slow rendering speed due to the expensive Monte Carlo ray tracing.  To tackle this problem, we proposed to distill the knowledge from implicit neural fields (teacher) to explicit 2D Gaussian splatting (student) representation to take advantage of the fast rasterization property of Gaussian splatting.  To avoid ray-tracing, we employ the split-sum approximation for PBR appearance.  We also propose novel part-wise ambient occlusion probes for shadow computation.  Shadow prediction is achieved by querying these probes only once per pixel, which paves the way for real-time relighting of avatars.  These techniques combined give high-quality relighting results with realistic shadow effects.  Our experiments demonstrate that the proposed student model achieves comparable relighting results with our teacher model while being 370 times faster at inference time, achieving a 67 FPS rendering speed.
+        </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <!-- <video controls height="100%">
+            <source src="./resource/CVPR2024_MultiPly_Supp_Video.mp4"
+                    type="video/mp4">
+          </video> -->
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/C4Q5U8w9X5U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section" id="method">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Method</h2>
+    <img src="./resource/new_method_dnf_avatar.png"  height="250" class="center"/>
+    <p>
+      Given a monocular video, we first train an implicit teacher model via ray-tracing-based PBR to decompose the intrinsic properties, including geometry, albedo, roughness, and metallic. Then, a point-based (2DGS) explicit student model is optimized under the guidance of the teacher model. In order to avoid the time-consuming ray-tracing-based PBR, we adopt an approximated PBR with part-wise occlusion probes to compute the shading color and model the shadowing effects. We regularize the student model by distilling the implicit property fields from our teacher model.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="result">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Result</h2>
+    <!-- <h2 class="title">Result</h2>
+
+    <h3 class="title">Comparison</h3>
+    <p>
+      Our method generates complete human shapes with sharp boundaries and spatially coherent 3D reconstructions and outperforms existing state-of-the-art methods.
+    </p>
+
+     <div class="columns is-centered is-gapless">
+      <div class="column">
+        <div class="content">
+          <h4 class="title">Hi4D Dataset</h4>
+          <video autoplay controls muted loop height="100%">
+            <source src="./resource/compare_1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="column">
+        <h4 class="title">MMM Dataset</h4>
+        <div class="columns is-centered">
+          <div class="column content">
+          <video autoplay controls muted loop height="100%">
+            <source src="./resource/compare_2.mp4"
+                    type="video/mp4">
+          </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <h4 class="title">In-the-wild Videos</h4>
+        <div class="columns is-centered">
+          <div class="column content">
+          <video autoplay controls muted loop height="100%">
+            <source src="./resource/compare_3.mp4"
+                    type="video/mp4">
+          </video>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <h3 class="title">More Qualitative Results</h3>
+    <p>
+      Our method generalizes to various people with different human shapes and miscellaneous clothing styles and performs well under different environment maps.
+    </p>
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel" data-slides-to-show="1">
+          <div class="item item-steve">
+            <video poster="" autoplay controls muted loop height="100%">
+              <source src="./resource/m1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" autoplay controls muted loop height="100%">
+              <source src="./resource/f1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" autoplay controls muted loop height="100%">
+              <source src="./resource/f2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h3 class="title">Intrinsic Properties</h3>
+    <p>
+      Our proposed part-wise occlusion probes enables fast and high-fidelity shadow modeling (Ambient Occlusion, i.e. AO) under novel poses. Our method also disentangles other intrinsic properties, such as albedo, metallic normal, and roughness, that used by our approximated PBR pipeline.
+    </p>
+    <section class="hero is-light is-small is-centered">
+      <div class="hero-body">
+        <div class="container">
+           <img src="./resource/intrinsics_final.gif" alt="Intrinsic Properties" style="width: 100%; height: auto;">
+        </div>
+      </div>
+    </section>
+
+
+    <h3 class="title">Comparison with IntrinsicAvatar</h3>
+    <p>
+      Our experiments demonstrate that the proposed student model achieves comparable or even better relighting results with our teacher model while being 370 times faster at inference time, achieving a 67 FPS rendering speed.
+    </p>
+    <div class="publication-video">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/IQWRRe26kl4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  <h3 class="title">Comparison with 3DGS-Avatar</h3>
+  <p>
+    The bias imposed by our implicit teacher model helps our student model to achieve reasonable rendering on out-of-distribution poses. In comparison, state-of-the-art 3DGS-based avatar model tends to fail on out-of-distribution poses especially around joints.
+  </p>
+
+<section class="hero is-light is-small is-centered" style="width: 70%; margin: 0 auto;">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel" data-slides-to-show="1" >
+        <div class="item item-steve">
+            <div class="b-dics">
+                <img src="./resource/frame24/3dgs.png" alt="3DGS-Avatar">
+                <img src="./resource/frame24/ours.png" alt="Ours">
+            </div>
+        </div>
+        <div class="item item-chair-tp">
+            <div class="b-dics">
+                <img src="./resource/frame20/3dgs.png" alt="3DGS-Avatar">
+                <img src="./resource/frame20/ours.png" alt="Ours">
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  </div>
+</section>
+
+
+
+<section class="section" id="Acknowledgment">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgment</h2>
+    <p>
+      The majority of this work was done when Zeren Jiang was a master student at ETH Zürich.
+    </p>
+    <p>
+      We thank Zhiyin Qian and Zinuo You for helpful suggestions and discussions. We also thank Angel He for proofreading.
+    </p>
+
+  </div>
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{DNF-Avatar,
+      title={DNF-Avatar: Distilling Neural Fields for Real-time Animatable Avatar Relighting}, 
+      author={Jiang, Zeren and Wang, Shaofei and Tang, Siyu},
+      year={2025},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+  }</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="http://files.ait.ethz.ch/projects/vid2avatar/main.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/MoyGcc/vid2avatar" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This webpage is built with the template from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>. We sincerely thank <a href="https://keunhong.com/">Keunhong Park</a> for developing and open-sourcing this template. The image comparison with sliding bar is from <a href="https://research.nvidia.com/labs/dir/neuralangelo/">Neuralangelo</a>. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
