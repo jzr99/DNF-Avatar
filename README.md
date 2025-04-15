@@ -1,7 +1,7 @@
 ## ___***DNF-Avatar: Distilling Neural Fields for Real-time Animatable Avatar Relighting***___
 <!-- <div align="center"> -->
 
-## [Paper](https://arxiv.org/pdf/xxxx.xxxxx) | [Video Youtube](https://youtu.be/C4Q5U8w9X5U) | [Project Page](https://jzr99.github.io/DNF-Avatar)
+## [Paper](https://arxiv.org/pdf/2504.10486) | [Video Youtube](https://youtu.be/C4Q5U8w9X5U) | [Project Page](https://jzr99.github.io/DNF-Avatar)
 
 
 <p align="center">
