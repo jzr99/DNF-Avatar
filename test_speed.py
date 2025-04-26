@@ -557,7 +557,7 @@ def test(config):
         print(f"2dgs number: {scene.gaussians.get_xyz.shape[0]}")
 
 
-@hydra.main(version_base=None, config_path="configs", config_name="config")
+@hydra.main(version_base=None, config_path="configs", config_name="config_peoplesnapshot")
 def main(config_explicit_implicit):
     print(OmegaConf.to_yaml(config_explicit_implicit))
     config = config_explicit_implicit.explicit_branch

@@ -112,6 +112,15 @@ def use_plyfile(pts, path):
 
 MIN_DEPTH = 1e-6
 
+class ProbeArgs:
+    def __init__(self, bound: float = 1.25, valid: float = 1.5, occlu_res: int = 128, cubemap_res: int = 32, occlusion: float = 1.0):
+        self.bound = bound
+        self.valid = valid
+        self.occlu_res = occlu_res
+        self.cubemap_res = cubemap_res
+        self.occlusion = occlusion
+
+
 # @hydra.main(version_base=None, config_path="configs", config_name="config")
 def build_occ(config_explicit_implicit, scene):
     # print(OmegaConf.to_yaml(config_explicit_implicit))
@@ -138,16 +147,17 @@ def build_occ(config_explicit_implicit, scene):
     # import pdb;pdb.set_trace()
 
     # Set up command line argument parser
-    parser = ArgumentParser(description="Testing script parameters")
     # model = ModelParams(parser, sentinel=True)
     # pipeline = PipelineParams(parser)
-    parser.add_argument("--bound", default=1.25, type=float, help="The bound of occlusion volumes.")
-    parser.add_argument("--valid", default=1.5, type=float, help="Identify valid area (cull invalid 3D Gaussians) to accelerate baking.")
-    parser.add_argument("--occlu_res", default=128, type=int, help="The resolution of the baked occlusion volumes.")
-    parser.add_argument("--cubemap_res", default=32, type=int, help="The resolution of the cubemap produced during baking.")
-    parser.add_argument("--occlusion", default=1.0, type=float, help="The occlusion threshold to control visible area, the smaller the bound, the lighter the ambient occlusion.")
-    parser.add_argument("--checkpoint", type=str, default=None, help="The path to the checkpoint to load.")
-    args = parser.parse_args()
+    # parser = ArgumentParser(description="Testing script parameters")
+    # parser.add_argument("--bound", default=1.25, type=float, help="The bound of occlusion volumes.")
+    # parser.add_argument("--valid", default=1.5, type=float, help="Identify valid area (cull invalid 3D Gaussians) to accelerate baking.")
+    # parser.add_argument("--occlu_res", default=128, type=int, help="The resolution of the baked occlusion volumes.")
+    # parser.add_argument("--cubemap_res", default=32, type=int, help="The resolution of the cubemap produced during baking.")
+    # parser.add_argument("--occlusion", default=1.0, type=float, help="The occlusion threshold to control visible area, the smaller the bound, the lighter the ambient occlusion.")
+    # parser.add_argument("--checkpoint", type=str, default=None, help="The path to the checkpoint to load.")
+    # args = parser.parse_args()
+    args = ProbeArgs()
     print(scene.gaussians.get_xyz.min(), scene.gaussians.get_xyz.max())
     if scene.gaussians.get_xyz.min() < -args.bound or scene.gaussians.get_xyz.max() > args.bound:
         args.bound = max(scene.gaussians.get_xyz.abs().max(), args.bound) + 0.1

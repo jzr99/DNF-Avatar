@@ -28,9 +28,9 @@ opt:
   test:
     num_workers: 0
     batch_size: 1
-#    start: 0
-#    end: 455
-    start: 456
-    end: 675
+    start: 0
+    end: 455
+    # start: 456
+    # end: 675
     skip: 4
     downscale: 2

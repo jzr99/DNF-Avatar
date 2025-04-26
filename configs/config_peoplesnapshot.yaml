@@ -2,6 +2,9 @@ defaults:
   - implicit_branch/config
   - explicit_branch/config
   - _self_
+  # - implicit_branch/dataset: peoplesnapshot/male-3-casual
+  # - explicit_branch/distill_dataset: ps_IA_distill_male_3
+  # - explicit_branch/dataset: ps_IA_male_3
 #  - override implicit_branch/pose_correction: pose_residual_enable
 #  - override implicit_branch/light: envlight_tensor # envlight_tensor_blender # envlight_tensor # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   - override explicit_branch/texture: shallow_mlp_rigid_noframe_ref_normal
@@ -38,7 +41,7 @@ implicit_branch:
 
 
 
-  resume: ./exp/intrinsic-avatar-male-3-casual/male-3-casual/ckpt/epoch=219-step=25000.ckpt
+  # resume: ./exp/intrinsic-avatar-male-3-casual/male-3-casual/ckpt/epoch=219-step=25000.ckpt
 
 
   trainer:
@@ -72,18 +75,6 @@ explicit_branch:
   density_distillation_K: 10
   density_distillation_min: 0.0003
   density_distillation_max: 0.01
-
-  occ_dir: ./exp/ps_male3_2dgs # used for star_pose and 3DV submission
-  exp_dir: ./exp/ps_male3_2dgs
-
-  dataset:
-    distill_data_dir: ./exp/intrinsic-avatar-male-3-casual/male-3-casual/save/it25000-test
-    init_mode: IA # IA, random, smpl
-    obj_path: /scratch/shared/beegfs/zeren/instant-nsr-pbr/instant-nsr-pbr/exp/intrinsic-avatar-male-3-casual/male-3-casual/save/it25000-mc512.obj
-    test_mode: pose
-    predict_seq: 1
-    white_background: true
-    rest_pose: a_pose
   # mode: test # predict
   # load_ckpt: /scratch/shared/beegfs/zeren/instant-nsr-pbr/instant-nsr-pbr/exp/ps_male3_2dgs_smpl_nonrigid_IA_canodistill_knn_scalereg_rigid_density10000102_distillpose_apose_correct/ckpt30000.pth
   # hdri: /scratch/shared/beegfs/zeren/instant-nsr-pbr/instant-nsr-pbr/Environment_Maps/high_res_envmaps_2k/cambridge_2k.hdr

@@ -15,7 +15,7 @@ import systems
 from systems.base import BaseSystem
 from systems.criterions import PSNR, NormalError, SSIM, LPIPS, binary_cross_entropy
 
-from systems.avatarGS import AvatarGS
+# from systems.avatarGS import AvatarGS
 from systems.avatarGS_2dgs import AvatarGS as AvatarGS_2dgs
 from systems.utils import update_module_step
 from systems.baking_occ_2dgs import build_occ

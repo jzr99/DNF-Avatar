@@ -56,7 +56,7 @@ To train on the `male-3-casual` sequence of PeopleSnapshot, use the following co
 ```
 python launch_ps.py training_mode=teacher \
    implicit_branch.mode=train \
-   implicit_branch.dataset=peoplesnapshot/male-3-casual \
+   implicit_branch/dataset=peoplesnapshot/male-3-casual \
    implicit_branch.trainer.max_steps=25000 \
    implicit_branch.tag=male-3-casual
 ```
@@ -67,8 +67,8 @@ To generate pseudo ground truth image used for distillation, use the following c
 ```
 python launch_ps.py training_mode=teacher \
    implicit_branch.mode=test \
-   implicit_branch.resume=./exp/intrinsic-avatar-male-3-casual/male-3-casual/ckpt/epoch=219-step=25000.ckpt \
-   implicit_branch.dataset=animation/male-3-casual-tpose \
+   implicit_branch.resume="exp/intrinsic-avatar-male-3-casual/male-3-casual/ckpt/epoch\=219-step\=25000.ckpt" \
+   implicit_branch/dataset=animation/male-3-casual-tpose \
    implicit_branch.tag=male-3-casual-tpose
 ```
 Then, the generated distillation avatar will be saved under the directory `exp/intrinsic-avatar-male-3-casual/male-3-casual-tpose`
@@ -79,10 +79,10 @@ To start distill knowledge from teacher model to student model, use the followin
 ```
 python launch_ps.py training_mode=distill \
    implicit_branch.mode=train \
-   implicit_branch.resume=./exp/intrinsic-avatar-male-3-casual/male-3-casual/ckpt/epoch=219-step=25000.ckpt \
-   implicit_branch.dataset=peoplesnapshot/male-3-casual \
-   explicit_branch.dataset=ps_IA_male_3 \
-   explicit_branch.distill_dataset=ps_IA_distill_male_3
+   implicit_branch.resume="exp/intrinsic-avatar-male-3-casual/male-3-casual/ckpt/epoch\=219-step\=25000.ckpt" \
+   implicit_branch/dataset=peoplesnapshot/male-3-casual \
+   explicit_branch/dataset=ps_IA_male_3 \
+   explicit_branch/distill_dataset=ps_IA_distill_male_3
 ```
 The occlusion probe will be store in `occ_dir`, and the experiments results and checkpoints will be stored in `exp_dir`. Those two argruments and some other parameters are defined in `configs/explicit_branch/dataset/ps_IA_male_3.yaml`. Note that `distill_pose_data_dir` and `alpha_data_dir` should point to the output folder of the generated distillation avatar, and those argruments are defined in `configs/explicit_branch/distill_dataset/ps_IA_distill_male_3.yaml`.
 
@@ -91,11 +91,11 @@ The occlusion probe will be store in `occ_dir`, and the experiments results and 
 To start animating and relighting the student avatar, use the following command:
 
 ```
-python test.py \
+python test_ps.py \
    explicit_branch.mode=test \
-   explicit_branch.dataset=ps_IA_animation_male_3 \
-   explicit_branch.load_ckpt=exp/ps_male3_2dgs/ckpt30000.pth \
-   explicit_branch.hdri=${path_to_hdri_env_map} 
+   explicit_branch/dataset=ps_IA_animation_male_3 \
+   explicit_branch.load_ckpt="exp/ps_male3_2dgs/ckpt30000.pth" \
+   +explicit_branch.hdri="Environment_Maps/cambridge_2k.hdr"
 ```
 
 To test the rendering speed, please use the `test_speed.py` file.
