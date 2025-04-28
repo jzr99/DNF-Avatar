@@ -3,7 +3,7 @@
 For dataset preparation and preprocessing, we assume you already finished intallation steps in `README.md`. NOTE: for preprocessing ZJU-MoCap and SyntheticHuman, you also need to download [this .txt file](https://github.com/zju3dv/EasyMocap/blob/98a229f2ab7647f14ac9693eab00639337274b49/data/smplx/J_regressor_body25_smplh.txt) from the [EasyMocap Repository](https://github.com/zju3dv/EasyMocap), and put it under `data/smplh/`.
 
 ## PeopleSnapshot Dataset
-We use the preprocessing script from [InstantAvatar](https://github.com/tijiang13/InstantAvatar), You can eiter use our script to generate compatible data or download directly the processed data from [google drive](https://drive.google.com/drive/folders/1OjA_Ho-IctUW4itN1mO2d5OELLJcMvpd?usp=drive_link).
+We use the preprocessing script from [InstantAvatar](https://github.com/tijiang13/InstantAvatar), You can eiter use our script to generate compatible data or download directly the processed data from [google drive](https://drive.google.com/drive/folders/1ZgajfGd3bgwPdXLPyp6d1eJleoIqrx7Q?usp=sharing).
 ```
 # Step 1: Download data from: https://graphics.tu-bs.de/people-snapshot
 # Step 2: Preprocess using InstantAvatar's script
